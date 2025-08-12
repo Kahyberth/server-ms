@@ -1,19 +1,23 @@
-import { IsString, IsBoolean } from 'class-validator';
+import { IsString, IsBoolean, IsOptional } from 'class-validator';
 
 
 
 export class CreateServerDto {
 
     @IsString()
-    name: string;
+    serverName: string;
 
     @IsString()
     description: string;
 
     @IsBoolean()
+    @IsOptional()
     isAlive?: boolean;
 
     @IsString()
     created_by: string;
+
+    @IsString()
+    teamId: string;
 
 }

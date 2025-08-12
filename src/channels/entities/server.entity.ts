@@ -20,6 +20,9 @@ export class Server {
     @Column({type: 'varchar', nullable: false})
     created_by: string;
 
+    @Column({type: 'varchar', nullable: false})
+    teamId: string;
+
     @CreateDateColumn()
     createdAt: Date;
     

@@ -7,6 +7,9 @@ export class Channel {
     @PrimaryGeneratedColumn('uuid')
     channel_id: string;
 
+    @Column({ type: 'varchar', nullable: false })
+    name: string;
+
     @Column({ type: 'text', nullable: true })
     description?: string;
 
