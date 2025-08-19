@@ -55,5 +55,10 @@ export class ServerController {
     return { message: 'pong' };
   }
 
+  @MessagePattern('server.test.connection')
+  testConnection() {
+    return { message: 'Server service is connected and working' };
+  }
+
 
 }

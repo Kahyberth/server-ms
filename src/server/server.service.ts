@@ -29,38 +29,46 @@ export class ServerService extends BaseTransactionService {
 
   async createServer(createServerDto: CreateServerDto) {
     console.log('createServerDto', createServerDto);
-    return this.runInTransaction(
-      async (manager) => {
+    
+    try {
+      return await this.runInTransaction(
+        async (manager) => {
+          const serverEntity = manager.create(Server, createServerDto);
+          const savedServer = await manager.save(Server, serverEntity);
 
-        const serverEntity = manager.create(Server, createServerDto);
-        const savedServer = await manager.save(Server, serverEntity);
+          const defaultChannel = manager.create(Channel, {
+            name: 'General',
+            description: 'Canal general del servidor',
+            created_by: createServerDto.created_by,
+            server: savedServer,
+            parent: undefined,
+          });
+          const savedChannel = await manager.save(Channel, defaultChannel);
 
-        const defaultChannel = manager.create(Channel, {
-          name: 'General',
-          description: 'Canal general del servidor',
-          created_by: createServerDto.created_by,
-          server: savedServer,
-          parent: undefined,
-        });
-        const savedChannel = await manager.save(Channel, defaultChannel);
+          console.log(`Server created successfully with ID: ${savedServer.server_id}`);
+          return { server: savedServer, defaultChannel: savedChannel };
+        },
 
-        return { server: savedServer, defaultChannel: savedChannel };
-      },
+        async ({ server }) => {
+          console.log(`Emitting server.create.channel.success for team: ${server.teamId}`);
+          this.client.emit('server.create.channel.success', {
+            teamId: server.teamId,
+            leaderId: server.created_by,
+          });
+        },
 
-      async ({ server }) => {
-        this.client.emit('server.create.channel.success', {
-          teamId: server.teamId,
-          leaderId: server.created_by,
-        });
-      },
-
-      async (error) => {
-        this.client.emit('server.create.channel.error', {
-          teamId: createServerDto.teamId,
-          reason: error.message,
-        });
-      },
-    );
+        async (error) => {
+          console.log(`Emitting server.create.channel.error for team: ${createServerDto.teamId}, reason: ${error.message}`);
+          this.client.emit('server.create.channel.error', {
+            teamId: createServerDto.teamId,
+            reason: error.message,
+          });
+        },
+      );
+    } catch (error) {
+      console.error('Error in createServer:', error);
+      throw error;
+    }
   }
 
 
