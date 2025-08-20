@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Channel } from "./channel.entity";
-import { channel } from "diagnostics_channel";
+
 
 @Entity('Message')
 export class Message {

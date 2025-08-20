@@ -4,10 +4,10 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 
 import { ServerService } from './server.service';
 import { ServerController } from './server.controller';
-import { Channel } from 'src/channels/entities/channel.entity';
-import { Message } from 'src/channels/entities/message.entity'
-import { Server } from 'src/channels/entities/server.entity';
-import { envs } from 'src/common/envs';
+import { Channel } from '../channels/entities/channel.entity';
+import { Message } from '../channels/entities/message.entity'
+import { Server } from '../channels/entities/server.entity';
+import { envs } from '../common/envs';
 
 @Module({
   controllers: [ServerController],

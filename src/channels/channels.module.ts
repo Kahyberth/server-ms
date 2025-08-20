@@ -6,8 +6,8 @@ import { Channel } from './entities/channel.entity';
 import { Message } from './entities/message.entity';
 import { ChannelsGateway } from './channels.gateway';
 import { ChannelsController } from './channels.controller';
-import { BaseTransactionService } from 'src/common/base-transaction.service';
-import { ServerModule } from 'src/server/server.module';
+import { BaseTransactionService } from '../common/base-transaction.service';
+import { ServerModule } from '../server/server.module';
 
 @Module({
   controllers: [ChannelsController],

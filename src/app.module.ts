@@ -16,7 +16,10 @@ import { ServerModule } from './server/server.module';
     database: envs.DB_DATABASE,
     synchronize: true,
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
-    logger: 'debug'
+    logger: 'debug',
+    extra: {
+      ssl: true,
+    }
   }), ServerModule,
     ],
   controllers: [],

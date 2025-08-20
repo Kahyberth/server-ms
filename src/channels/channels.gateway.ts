@@ -4,9 +4,9 @@ import { UserProfile } from './types/userProfile';
 import { Inject } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { SendMessageDto } from 'src/server/dto/send-message.dto';
-import { ServerService } from 'src/server/server.service';
-import { envs } from 'src/common/envs';
+import { SendMessageDto } from '../server/dto/send-message.dto';
+import { ServerService } from '../server/server.service';
+import { envs } from '../common/envs';
 
 
 
