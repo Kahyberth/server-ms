@@ -50,6 +50,12 @@ export class ServerController {
     return this.serverService.getChannels(teamId, pagination);
   }
 
+  @MessagePattern('server.get.server.by.team')
+  getServerByTeamId(@Payload() payload: { teamId: string }) {
+    const { teamId } = payload;
+    return this.serverService.getServerByTeamId(teamId);
+  }
+
   @MessagePattern('server.ping')
   ping() {
     return { message: 'pong' };
